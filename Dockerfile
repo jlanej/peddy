@@ -25,7 +25,7 @@ COPY requirements.txt /app/requirements.txt
 WORKDIR /app
 COPY . ./
 RUN pip3 install -r requirements.txt
-RUN pip3 install install --editable .
+RUN pip3 install --editable .
 # copy the project files into the container
 
 
