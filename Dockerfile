@@ -21,12 +21,13 @@ RUN pip3.9 install --upgrade pip
 
 # install the project dependencies in requirements.txt
 COPY requirements.txt /app/requirements.txt
+
 WORKDIR /app
+COPY . ./
 RUN pip3 install -r requirements.txt
 RUN pip3 install install --editable .
 # copy the project files into the container
-COPY . /app
-WORKDIR /app
+
 
 RUN peddy -h
 CMD ["peddy"]
