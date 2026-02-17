@@ -1,11 +1,18 @@
+import os
 import sys
-import toolshed as ts
+
+try:
+    from peddy.reader import reader
+except ImportError:
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from peddy.reader import reader
+
 import numpy as np
 import statsmodels.api as sm
 
 
-king = list(ts.reader(1))
-peddy = list(ts.reader(2, sep=","))
+king = list(reader(1))
+peddy = list(reader(2, sep=","))
 
 
 king_ibs = {tuple(sorted([d['ID1'], d['ID2']])): float(d['N_IBS0']) for d in king}

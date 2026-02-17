@@ -6,8 +6,16 @@ The PCA runs in ~20 seconds and the randomized PCA runs in ~4 seconds.
 """
 
 import gzip
+import os
+import sys
 import numpy as np
-import toolshed as ts
+
+try:
+    from peddy.reader import reader
+except ImportError:
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from peddy.reader import reader
+
 from sklearn import svm
 
 import seaborn as sns
@@ -29,7 +37,7 @@ clf = make_pipeline(RandomizedPCA(n_components=4, whiten=True, copy=False),
 ipops = "AFR AMR EAS EUR SAS".split()
 
 # https://hangouts.google.com/webchat/u/0/frame?v=1463175081&hl=en-US&pvt=AMP3uWbeJzucAfSaxyKZreeU3oew-CyaV-gwRMAvHpeHN9VKU_EhC1Fj75C7UKU-cpIk6HvlXK6K&prop=aChromeExtension#zSoyz
-pops = np.array([x['super_pop'] for x in ts.reader('integrated_call_samples_v3.20130502.ALL.panel')])
+pops = np.array([x['super_pop'] for x in reader('integrated_call_samples_v3.20130502.ALL.panel')])
 target = np.array([ipops.index(x) for x in pops])
 
 #print "|".join(map(str, target))
@@ -83,4 +91,3 @@ axes[1].set_xlabel("PC1")
 axes[1].set_ylabel("PC3")
 plt.legend()
 plt.show()
-

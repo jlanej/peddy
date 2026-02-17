@@ -6,7 +6,6 @@ import gzip
 import logging
 
 import numpy as np
-import toolshed as ts
 from sklearn import svm
 from sklearn.pipeline import make_pipeline
 from sklearn.decomposition import PCA
@@ -153,4 +152,3 @@ def pca(fig_path, sitesfile, genotype_matrix=None, sites=None):
 
 if __name__ == "__main__":
     pca("1kg", None)
-
