@@ -1,4 +1,5 @@
 from .utils import which
+from .reader import reader
 import os
 import subprocess
 
@@ -42,8 +43,7 @@ def run_king(vcf_path, ped_obj):
 
 def read_king(king_file):
     pairs = {}
-    import toolshed as ts
-    for d in ts.reader(king_file):
+    for d in reader(king_file):
         pairs[(d['ID1'], d['ID2'])] = float(d['Kinship'])
         pairs[(d['ID2'], d['ID1'])] = float(d['Kinship'])
     return pairs
@@ -101,4 +101,3 @@ def kingped(ped_obj, king_pairs, sib_pairs, parent_child, cutoff=0.13):
 if __name__ == "__main__":
     import sys
     kingped(sys.argv[1], sys.argv[2])
-

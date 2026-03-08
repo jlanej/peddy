@@ -1,5 +1,12 @@
+import os
 import sys
-import toolshed as ts
+
+try:
+    from peddy.reader import reader
+except ImportError:
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from peddy.reader import reader
+
 import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -8,7 +15,7 @@ def shared(fs):
     sets = []
     for f in fs:
         s = set()
-        for d in ts.reader(f, sep=","):
+        for d in reader(f, sep=","):
             x = float(d['rel'])
             y = float(d['pedigree_relatedness'])
             #if abs(x - y) > 0.2: continue
@@ -26,7 +33,7 @@ def plot(f, axs, shared):
     diffs = []
 
     xs, ys = [], []
-    for d in ts.reader(f, sep=","):
+    for d in reader(f, sep=","):
         if not (d['sample_a'], d['sample_b']) in shared: continue
 
         x = float(d['rel'])
